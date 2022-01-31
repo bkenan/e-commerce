@@ -1,0 +1,65 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+{% if listing.closed %}
+<div class="alert alert-primary" role="alert">
+  <h2>Sold! This item is not available!</h2>
+</div>
+{% endif %}
+<h1>Listing: {{ listing.item }}</h1>
+<div class="p-2">
+  <form action="{% url 'listing' listing.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" name="button" value="Add" class="btn btn-success btn-sm">Add to Watchlist</button>
+    <button type="submit" name="button" value="Delete" class="btn btn-danger btn-sm">Delete from Watchlist</button>
+  </form>
+</div>
+
+<div>
+  <img src="{{ listing.image.url }}" alt="image" style="width: 400px; height: auto">
+</div>
+<div>
+  <h2>${{ listing.price }}</h2>
+  <p>{{ message }}</p>
+  <form action="{% url 'listing' listing.id %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="bid">{{ listing.bids.count }} bid(s) in total</label>
+    </div>
+    <div class="form-group">
+      {{ form }}
+    </div>
+    <div class="form-group">
+      <input type="submit" name="button" class="btn btn-primary" value="Bid">
+    </div>
+  </form>
+</div>
+<div>
+  <h4>Details</h4>
+  <ul>
+    <li>Listed by: {{ listing.seller }}</li>
+    <li>Description: {{ listing.description }}</li>
+    {% if listing.closed %}
+    <li><strong>Buyer: </strong>{{ listing.bids.last.user.username }}</li>
+    {% endif %}
+  </ul>
+  {% if not listing.closed and user.username == listing.seller.username %}
+  <form action="{% url 'listing' listing.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" name="button" class="btn btn-danger" value="Close">Close</button>
+  </form>
+  {% endif %}
+</div>
+
+<div>
+  <h4>Comments</h4>
+  <a href="{% url 'comment' listing.id %}">Add a Comment!</a>
+
+  {% for comment in listing.comments.all %}
+  <div>
+    <p><strong>{{ comment.username }}</strong></p>
+    <p>{{ comment.comment }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
