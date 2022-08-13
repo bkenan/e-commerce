@@ -7,7 +7,7 @@ The app has the following functionalities: Register, log in/log out, create list
 
 The backend was completely built in Django and I used SQL for the database.
 
-## How to run:
+## Collaboration:
 
 ```
 make all
@@ -23,7 +23,8 @@ python manage.py runserver
 ```
 
 
-## Demo
+## Demo for different stages of the app
+
 <img width="1511" alt="1" src="https://user-images.githubusercontent.com/53462948/184511774-68877788-1430-48d2-b9c8-20e07dacce0d.png">
 
 <img width="1511" alt="2" src="https://user-images.githubusercontent.com/53462948/184511782-c8815e05-44fa-4720-a9d8-4a91a3faf34a.png">
