@@ -13,10 +13,10 @@ The backend was completely built in Django and I used SQL for the database.
 make all
 ```
 ```
-python manage.py makemigrations
-```
-```
 cd commerce
+```
+```
+python manage.py makemigrations
 ```
 ```
 python manage.py runserver
